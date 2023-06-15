@@ -1,11 +1,13 @@
 body {
+  --max-page-width: 1200px;
+
   //====== FONT SIZE VARIABLES ======//
 
   // Body Font Size
   --text-base-size: 1rem;
 
   // Type Scale
-  --text-scale-ratio: 1.2;
+  --text-scale-ratio: 1.1;
 
   --text-xxxs: calc(var(--text-xxs) / var(--text-scale-ratio));
   --text-xxs: calc(var(--text-xs) / var(--text-scale-ratio));
