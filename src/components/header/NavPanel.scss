@@ -1,0 +1,7 @@
+@use '@/styles/mixins' as mx;
+@use '@/styles/placeholders';
+
+.nav {
+  padding: 2rem;
+  background: rgb(230, 230, 230);
+}

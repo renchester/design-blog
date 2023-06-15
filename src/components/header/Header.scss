@@ -1,0 +1,35 @@
+@use '@/styles/mixins' as mx;
+@use '@/styles/placeholders';
+
+.header {
+  @extend %parent-with-centered-children;
+  justify-content: space-between;
+  position: relative;
+
+  padding-block: 1rem;
+  padding-inline: 0.5rem;
+  background: rgb(199, 199, 199);
+  font-family: var(--font-raleway);
+}
+
+.left {
+  @extend %parent-with-centered-children;
+
+  &__label.active {
+    text-decoration: underline;
+  }
+
+  &__arrow-icon {
+    transition: 100ms ease-in;
+    transform-origin: center;
+
+    &[data-expanded='true'] {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.right {
+  &__search-icon {
+  }
+}
