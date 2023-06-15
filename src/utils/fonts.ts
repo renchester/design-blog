@@ -21,7 +21,7 @@ export const roboto = Roboto({
 
 export const raleway = Raleway({
   subsets: ['latin', 'latin-ext'],
-  variable: '--font-roboto',
+  variable: '--font-raleway',
   display: 'swap',
 });
 
