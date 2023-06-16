@@ -1,0 +1,65 @@
+.auth-input {
+  --input-margin: 1rem;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1.75rem;
+
+  &__label {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--color-text-accent);
+
+    &::after {
+      content: ':';
+    }
+  }
+
+  &__input-wrapper {
+    position: relative;
+  }
+
+  &__input {
+    padding-block: 0.35rem;
+    padding-left: calc(var(--input-margin) / 2);
+    padding-right: calc(var(--input-margin) * 2);
+    outline: 1px solid var(--color-text-alpha25);
+    width: 100%;
+    font-size: var(--text-sm);
+
+    &:focus {
+      outline: 1px solid var(--color-text);
+    }
+  }
+
+  &__error {
+    position: absolute;
+    top: calc(100% + 2px);
+    font-size: var(--text-xxs);
+    color: var(--color-error);
+  }
+}
+
+.auth-validation {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: calc(var(--input-margin) / 2);
+
+  &__icon {
+    color: var(--color-light-1);
+    border-radius: 100%;
+    font-size: var(--text-xl);
+  }
+
+  &__valid-icon {
+    background: var(--color-valid);
+  }
+
+  &__invalid-icon {
+    background: var(--color-error);
+  }
+}
