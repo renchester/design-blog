@@ -1,0 +1,42 @@
+.auth-page {
+  &__main {
+    width: clamp(150px, 100%, 550px);
+    margin-inline: auto;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-block: 1rem 2.25rem;
+    text-align: center;
+
+    font-family: var(--font-inter);
+  }
+
+  &__title {
+    font-weight: 500;
+  }
+
+  &__terms {
+    margin-top: 0.25rem;
+    font-size: var(--text-xs);
+  }
+
+  &__other {
+    margin-top: 1rem;
+    font-size: var(--text-xs);
+  }
+
+  &__link {
+    padding-bottom: 0.025rem;
+    color: var(--color-primary);
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      border-bottom: 1px solid currentColor;
+    }
+  }
+}
