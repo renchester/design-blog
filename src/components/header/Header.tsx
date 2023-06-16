@@ -11,73 +11,74 @@ function Header() {
   const toggleNav = () => setNavExpanded((prevState) => !prevState);
 
   return (
-    <>
-      <header className="header">
+    <header className="header">
+      <div className="header__wrapper">
         <button
-          className="left"
+          className={`header-left ${isNavExpanded && 'active'}`}
           aria-haspopup
           aria-expanded={isNavExpanded}
           aria-controls="nav-panel"
           onClick={toggleNav}
         >
-          <span className={`left__label ${isNavExpanded && 'active'}`}>
-            Nav
-          </span>
-          <div aria-hidden>
+          <span className="header-left__label">Read</span>
+          <div
+            className="header-left__icon"
+            data-expanded={isNavExpanded}
+            aria-hidden
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              viewBox="2.5 2.5 18 18"
               fill="none"
               stroke="#000000"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              className="left__arrow-icon"
-              data-expanded={isNavExpanded}
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="header-left__arrow-icon"
             >
               <path d="M6 9l6 6 6-6" />
             </svg>
           </div>
         </button>
 
-        <h1 className="main">
+        <h1 className="header-main">
           <Link href="/">Dezien</Link>
         </h1>
 
-        <div className="right">
-          <Link href="/account/login" className="right__login">
-            Login
+        <div className="header-right">
+          <Link href="/account/login" className="header-right__login">
+            Log in
           </Link>
 
           <button
-            className="right__search"
+            className="header-right__search"
             aria-haspopup
             aria-expanded={false}
             aria-controls="search-panel"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              viewBox="-1 -3 24 24"
               fill="none"
               stroke="#000000"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              className="right__search-icon"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="header-right__search-icon"
             >
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
           </button>
         </div>
-      </header>
+      </div>
 
       {isNavExpanded && <NavPanel isExpanded={isNavExpanded} />}
-    </>
+    </header>
   );
 }
 
