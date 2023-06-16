@@ -4,6 +4,7 @@ import {
   Montserrat,
   Playfair_Display,
   Inter,
+  Poppins,
 } from 'next/font/google';
 
 export const inter = Inter({
@@ -34,5 +35,12 @@ export const montserrat = Montserrat({
 export const playfair = Playfair_Display({
   subsets: ['latin', 'latin-ext'],
   variable: '--font-playfair',
+  display: 'swap',
+});
+
+export const poppins = Poppins({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-poppins',
   display: 'swap',
 });

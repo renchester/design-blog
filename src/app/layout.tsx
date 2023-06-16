@@ -1,4 +1,11 @@
-import { inter, roboto, montserrat, raleway, playfair } from '@/utils/fonts';
+import {
+  inter,
+  roboto,
+  montserrat,
+  raleway,
+  playfair,
+  poppins,
+} from '@/utils/fonts';
 import '@/styles/globals.scss';
 import 'material-symbols';
 
@@ -21,13 +28,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${roboto.variable} ${montserrat.variable} ${raleway.variable} ${playfair.variable}`}
+        className={`${inter.variable} ${roboto.variable} ${montserrat.variable} ${raleway.variable} ${playfair.variable} ${poppins.variable}`}
       >
-        <div className="container">
-          <Header />
-          {children}
-          <Footer />
-        </div>
+        <Header />
+        <div className="container">{children}</div>
+        <Footer />
       </body>
     </html>
   );
