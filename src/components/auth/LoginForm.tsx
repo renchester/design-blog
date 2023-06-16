@@ -1,5 +1,6 @@
 'use client';
 
+import './Form.scss';
 import { useState } from 'react';
 import debounce from 'lodash.debounce';
 
@@ -66,6 +67,7 @@ function LoginForm() {
         type="email"
         label="Email"
         value={email}
+        isRequired
         isValid={isEmailValid}
         handleChange={handleEmailChange}
         errorMessage={emailError}
@@ -76,6 +78,7 @@ function LoginForm() {
         type="password"
         label="Password"
         value={password}
+        isRequired
         isValid={isPasswordValid}
         handleChange={handlePasswordChange}
         errorMessage={passwordError}

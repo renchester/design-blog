@@ -1,0 +1,21 @@
+.auth {
+  &__form {
+  }
+
+  &__btn-submit {
+    margin-top: 0.5rem;
+    padding: 0.625rem 1.5rem;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-align: center;
+    border-radius: var(--border-radius);
+
+    background: var(--color-primary);
+    color: var(--color-light-1);
+
+    &:disabled {
+      cursor: not-allowed;
+      background: var(--color-text-alpha50);
+    }
+  }
+}
