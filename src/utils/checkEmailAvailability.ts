@@ -7,7 +7,7 @@ const checkEmailAvailability = async (email: string) => {
     const response = await axios.get(`${API_URL}/api/users/email/${email}`);
 
     if (response.status === 200) {
-      throw new Error('Email is aready in use');
+      throw new Error('Email is already in use');
     }
   } catch (error) {
     if (error instanceof AxiosError && error.response?.status === 404) {

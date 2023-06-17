@@ -9,7 +9,7 @@ const checkUsernameAvailability = async (username: string) => {
     );
 
     if (response.status === 200) {
-      throw new Error('Username is aready in use');
+      throw new Error('Username is already in use');
     }
   } catch (error) {
     if (error instanceof AxiosError && error.response?.status === 404) {
