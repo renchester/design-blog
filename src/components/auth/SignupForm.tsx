@@ -2,9 +2,12 @@
 
 import './Form.scss';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import debounce from 'lodash.debounce';
+import axios from 'axios';
 
 import AuthInput from './AuthInput';
+import { useSnackbar } from '@/hooks/useSnackbar';
 import validateEmail from '@/utils/validators/validateEmail';
 import validatePassword from '@/utils/validators/validatePassword';
 import validateUsername from '@/utils/validators/validateUsername';
@@ -12,6 +15,8 @@ import checkEmailAvailability from '@/utils/checkEmailAvailability';
 import checkUsernameAvailability from '@/utils/checkUsernameAvailability';
 
 function SignupForm() {
+  const router = useRouter();
+  const { addAlert } = useSnackbar();
   const DEBOUNCE_TIME = 1000;
 
   const [email, setEmail] = useState('');
@@ -133,8 +138,38 @@ function SignupForm() {
     passwordMatches
   );
 
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    try {
+      const response = await axios.post(`${API_URL}/api/users`, {
+        username,
+        email,
+        password,
+        first_name: firstName,
+        last_name: lastName,
+      });
+
+      if (response.status === 201) {
+        // Successfully created user. Redirect to login page
+        addAlert({
+          status: 'success',
+          message: 'Successfully created user. You must log in again.',
+        });
+        router.push('/account/login');
+        return;
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        addAlert({ status: 'error', message: 'Failed to create user.' });
+        console.error(error.message);
+      }
+    }
+  };
+
   return (
-    <form action="" className="auth__form">
+    <form action="" className="auth__form" onSubmit={handleSignup}>
       <AuthInput
         id="signup__email"
         name="email"

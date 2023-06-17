@@ -2,13 +2,20 @@
 
 import './Form.scss';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 import debounce from 'lodash.debounce';
 
 import AuthInput from './AuthInput';
 import validateEmail from '@/utils/validators/validateEmail';
 import validatePassword from '@/utils/validators/validatePassword';
+import { useSnackbar } from '@/hooks/useSnackbar';
+import { useAuth } from '@/hooks/useAuth';
 
 function LoginForm() {
+  const { addAlert } = useSnackbar();
+  const { login } = useAuth();
+  const router = useRouter();
   const DEBOUNCE_TIME = 1000;
 
   const [email, setEmail] = useState('');
@@ -57,7 +64,36 @@ function LoginForm() {
     DEBOUNCE_TIME,
   );
 
-  const handleEmailLogin = async () => {};
+  const handleEmailLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    try {
+      const response = await axios.post(`${API_URL}/auth/login`, {
+        email,
+        password,
+      });
+
+      const token = response.data.token;
+      const tokenExpiration = response.data.expiresIn;
+      const user = response.data.user;
+
+      login(token, tokenExpiration, user);
+
+      addAlert({ status: 'success', message: 'Successfully logged in.' });
+
+      // Redirect to home
+      router.push('/');
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        addAlert({
+          status: 'error',
+          message: 'Failed to log in. Wrong email or password.',
+        });
+      }
+    }
+  };
 
   return (
     <form action="" className="auth__form" onSubmit={handleEmailLogin}>
