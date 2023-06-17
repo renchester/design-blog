@@ -69,12 +69,14 @@ table {
 }
 
 body {
-  font-family: var(--font-raleway);
+  position: relative;
+  background: var(--color-background);
+  font-family: var(--font-inter);
+  color: var(--color-text);
 }
 
 button {
   background: transparent;
-  color: inherit;
   font-size: inherit;
   cursor: pointer;
 }
@@ -83,7 +85,6 @@ a,
 a:link,
 a:visited {
   text-decoration: none;
-  color: inherit;
 }
 
 p {
@@ -93,7 +94,13 @@ p {
 //===== Container Styles =====//
 
 .container {
-  min-height: 100vh;
-  width: var(--max-page-width);
+  min-height: 80vh;
+  max-width: var(--max-page-width);
+
+  margin-top: 2.25rem;
   margin-inline: auto;
+  padding-inline: var(--page-padding-inline);
+}
+
+.page__main {
 }
