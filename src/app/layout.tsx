@@ -12,6 +12,8 @@ import 'material-symbols';
 import Header from '@/components/header/Header';
 import Footer from '@/components/footer/Footer';
 import { Metadata } from 'next';
+import { SnackbarProvider } from '@/hooks/useSnackbar';
+import { AuthProvider } from '@/hooks/useAuth';
 
 export const metadata: Metadata = {
   title: {
@@ -30,9 +32,13 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${roboto.variable} ${montserrat.variable} ${raleway.variable} ${playfair.variable} ${poppins.variable}`}
       >
-        <Header />
-        <div className="container">{children}</div>
-        <Footer />
+        <AuthProvider>
+          <SnackbarProvider>
+            <Header />
+            <div className="container">{children}</div>
+            <Footer />
+          </SnackbarProvider>
+        </AuthProvider>
       </body>
     </html>
   );
