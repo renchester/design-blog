@@ -1,0 +1,39 @@
+@use '@/styles/mixins' as mx;
+
+.snackbar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: clamp(120px, 85%, 500px);
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+
+  border-radius: var(--border-radius);
+  padding: 0.875rem 1rem;
+  margin-bottom: 3rem;
+  color: var(--color-light-1);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+
+  &[data-status='error'] {
+    background: var(--color-error);
+  }
+
+  &[data-status='success'] {
+    background: var(--color-success);
+  }
+
+  &[data-status='neutral'] {
+    background: var(--color-primary);
+  }
+
+  &__message {
+  }
+
+  &__icon {
+  }
+}
