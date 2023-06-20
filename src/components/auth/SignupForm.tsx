@@ -7,7 +7,7 @@ import debounce from 'lodash.debounce';
 import axios from 'axios';
 
 import AuthInput from './AuthInput';
-import { useSnackbar } from '@/hooks/useSnackbar';
+import useSnackbar from '@/hooks/useSnackbar';
 import validateEmail from '@/utils/validators/validateEmail';
 import validatePassword from '@/utils/validators/validatePassword';
 import validateUsername from '@/utils/validators/validateUsername';

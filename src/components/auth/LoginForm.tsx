@@ -3,14 +3,14 @@
 import './Form.scss';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
 import debounce from 'lodash.debounce';
+import { axiosPrivate } from '@/lib/axios';
 
 import AuthInput from './AuthInput';
 import validateEmail from '@/utils/validators/validateEmail';
 import validatePassword from '@/utils/validators/validatePassword';
-import { useSnackbar } from '@/hooks/useSnackbar';
-import { useAuth } from '@/hooks/useAuth';
+import useSnackbar from '@/hooks/useSnackbar';
+import useAuth from '@/hooks/useAuth';
 
 function LoginForm() {
   const { addAlert } = useSnackbar();
@@ -66,19 +66,17 @@ function LoginForm() {
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, {
+      const response = await axiosPrivate.post('/auth/login', {
         email,
         password,
       });
 
-      const token = response.data.token;
-      const tokenExpiration = response.data.expiresIn;
-      const user = response.data.user;
+      const token = response.data.accessToken;
 
-      login(token, tokenExpiration, user);
+      // Set token and user to global auth context
+      login(token);
 
       addAlert({ status: 'success', message: 'Successfully logged in.' });
 
