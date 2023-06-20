@@ -12,8 +12,8 @@ import 'material-symbols';
 import Header from '@/components/header/Header';
 import Footer from '@/components/footer/Footer';
 import { Metadata } from 'next';
-import { SnackbarProvider } from '@/hooks/useSnackbar';
-import { AuthProvider } from '@/hooks/useAuth';
+import { SnackbarProvider } from '@/context/SnackbarContext';
+import { AuthProvider } from '@/context/AuthContext';
 
 export const metadata: Metadata = {
   title: {
