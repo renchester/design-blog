@@ -2,6 +2,7 @@ import '../AuthPage.scss';
 import SignupForm from '@/components/auth/SignupForm';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import RedirectIfUser from '@/components/redirects/RedirectIfUser';
 
 export const metadata: Metadata = {
   title: 'Sign up',
@@ -10,6 +11,8 @@ export const metadata: Metadata = {
 function RegisterPage() {
   return (
     <>
+      <RedirectIfUser href="/" />
+
       <section className="auth-page__details">
         <h2 id="login-title" className="auth-page__title">
           Welcome to Dezien!
