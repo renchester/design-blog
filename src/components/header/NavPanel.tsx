@@ -1,16 +1,42 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import './NavPanel.scss';
+import { useEffect, useRef } from 'react';
 
 type NavPanelProps = {
   isExpanded: boolean;
+  hideNav: () => void;
 };
 
 function NavPanel(props: NavPanelProps) {
-  const { isExpanded } = props;
+  const { isExpanded, hideNav } = props;
+  const panelRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    // Global event listeners for hiding panel
+    function globalClickListener(e: MouseEvent) {
+      if (!panelRef.current?.contains(e.target as HTMLElement)) {
+        hideNav();
+      }
+    }
+
+    function escKeyListener(e: KeyboardEvent) {
+      if (e.key === 'Escape') hideNav();
+    }
+
+    window.addEventListener('click', globalClickListener);
+    window.addEventListener('keydown', escKeyListener);
+
+    return () => {
+      window.removeEventListener('click', globalClickListener);
+      window.removeEventListener('keydown', escKeyListener);
+    };
+  }, [hideNav]);
 
   return (
-    <nav id="nav-panel" aria-hidden={isExpanded} className="nav">
+    <nav id="nav-panel" aria-hidden={isExpanded} className="nav" ref={panelRef}>
       <div className="nav__col-1">
         <h3 className="nav__label">Topics</h3>
         <ul className="nav__links">
