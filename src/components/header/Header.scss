@@ -1,12 +1,12 @@
 @use '@/styles/mixins' as mx;
 @use '@/styles/placeholders';
+@use '@/styles/maps' as maps;
 
 .header {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: map-get($map: maps.$zindex, $key: header);
   background: var(--color-background);
-  border-bottom: 1px solid var(--color-text-alpha25);
 
   &__wrapper {
     position: relative;
@@ -65,6 +65,21 @@
 .header-right {
   @extend %parent-with-centered-children;
   gap: 0.5rem;
+
+  &__account {
+    position: relative;
+  }
+
+  &__img-btn {
+    --btn-size: 28px;
+
+    @extend %parent-with-centered-children;
+    border-radius: 100%;
+    height: var(--btn-size);
+    width: var(--btn-size);
+    overflow: hidden;
+    background: var(--color-primary);
+  }
 
   &__login {
     background: var(--color-primary);

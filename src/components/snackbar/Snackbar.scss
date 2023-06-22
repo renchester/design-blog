@@ -1,11 +1,12 @@
 @use '@/styles/mixins' as mx;
+@use '@/styles/maps' as maps;
 
 .snackbar {
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 100;
+  z-index: map-get($map: maps.$zindex, $key: snackbar);
   width: clamp(120px, 85%, 500px);
 
   display: flex;
