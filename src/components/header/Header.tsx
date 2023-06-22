@@ -1,14 +1,47 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+
 import './Header.scss';
 import NavPanel from './NavPanel';
+import useAuth from '@/hooks/useAuth';
+import AccountMenu from './AccountMenu';
+import SearchPanel from '../search/SearchPanel';
+import Overlay from '../Overlay';
 
 function Header() {
-  const [isNavExpanded, setNavExpanded] = useState(false);
+  const { user } = useAuth();
 
-  const toggleNav = () => setNavExpanded((prevState) => !prevState);
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
+  const [isNavExpanded, setNavExpansion] = useState(false);
+  const [isAccountMenuExpanded, setAccountMenuExpansion] = useState(false);
+  const [isSearchPanelExpanded, setSearchPanelExpansion] = useState(false);
+
+  // Navigation Panel handlers
+  const toggleNav = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setNavExpansion((prevState) => !prevState);
+  };
+  const hideNav = () => setNavExpansion(false);
+
+  // Account Menu handlers
+  const toggleAccountMenu = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setAccountMenuExpansion((prevState) => !prevState);
+  };
+  const hideAccountMenu = () => setAccountMenuExpansion(false);
+
+  // Search Panel handlers
+  const toggleSearchPanel = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setSearchPanelExpansion((prevState) => !prevState);
+  };
+  const hideSearchPanel = () => setSearchPanelExpansion(false);
 
   return (
     <header className="header">
@@ -48,15 +81,41 @@ function Header() {
         </h1>
 
         <div className="header-right">
-          <Link href="/account/login" className="header-right__login">
-            Log in
-          </Link>
+          {user ? (
+            <div className="header-right__account">
+              <button
+                type="button"
+                className="header-right__img-btn"
+                onClick={toggleAccountMenu}
+                aria-haspopup
+                aria-expanded={isAccountMenuExpanded}
+                aria-controls="account-menu"
+              >
+                <Image
+                  src="/logo.png"
+                  width={14}
+                  height={14}
+                  alt="App logo"
+                  className="header-right__img"
+                />
+              </button>
+
+              {isAccountMenuExpanded && (
+                <AccountMenu hideMenu={hideAccountMenu} />
+              )}
+            </div>
+          ) : (
+            <Link href="/account/login" className="header-right__login">
+              Log in
+            </Link>
+          )}
 
           <button
             className="header-right__search"
             aria-haspopup
-            aria-expanded={false}
+            aria-expanded={isSearchPanelExpanded}
             aria-controls="search-panel"
+            onClick={toggleSearchPanel}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +136,15 @@ function Header() {
         </div>
       </div>
 
-      {isNavExpanded && <NavPanel isExpanded={isNavExpanded} />}
+      {isNavExpanded && (
+        <NavPanel isExpanded={isNavExpanded} hideNav={hideNav} />
+      )}
+
+      {isSearchPanelExpanded && (
+        <Overlay hideChildren={hideSearchPanel}>
+          <SearchPanel hidePanel={hideSearchPanel} />
+        </Overlay>
+      )}
     </header>
   );
 }
