@@ -21,7 +21,11 @@ function RedirectIfUser(props: RedirectProps) {
     }
   }, [user, router, href]);
 
-  return <p>You must be logged out to view this page...</p>;
+  if (user) {
+    return <p>You must be logged out to view this page...</p>;
+  } else {
+    return null;
+  }
 }
 
 export default RedirectIfUser;

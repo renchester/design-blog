@@ -21,6 +21,10 @@ function RedirectIfNoUser(props: RedirectProps) {
     }
   }, [router, user, href]);
 
-  return <p>You must be logged in to view this page...</p>;
+  if (!user) {
+    return <p>You must be logged in to view this page...</p>;
+  } else {
+    return null;
+  }
 }
 export default RedirectIfNoUser;
