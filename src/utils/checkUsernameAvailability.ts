@@ -5,7 +5,7 @@ const checkUsernameAvailability = async (username: string) => {
 
   try {
     const response = await axios.get(
-      `${API_URL}/api/users/username/${username}`,
+      `${API_URL}/api/users?username=${username}`,
     );
 
     if (response.status === 200) {
