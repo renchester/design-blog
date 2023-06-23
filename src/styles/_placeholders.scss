@@ -15,3 +15,15 @@
   background-size: cover;
   background-position: center;
 }
+
+%category-tag {
+  padding: 0.3rem 0.75rem;
+  background: var(--color-light-1);
+  border: 1px solid;
+  box-shadow: -4px 3px 0px 0px black;
+
+  text-transform: uppercase;
+  font-size: var(--text-4xs);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}

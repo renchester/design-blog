@@ -50,3 +50,10 @@ $breakpoints: (
     transform: translate(-50%, -50%);
   }
 }
+
+@mixin clamp-text($numLine: 3) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $numLine;
+  overflow: hidden;
+}
