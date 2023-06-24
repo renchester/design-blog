@@ -1,0 +1,49 @@
+@use '@/styles/mixins' as mx;
+@use '@/styles/placeholders';
+
+.small-pvw {
+  margin-bottom: 1rem;
+
+  &:not(:first-of-type) {
+    margin-top: 2rem;
+  }
+
+  &__display {
+    position: relative;
+  }
+
+  &__img {
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &__category {
+    @extend %category-tag;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+  }
+
+  &__info {
+    padding-inline: 0.75rem;
+  }
+
+  &__title {
+    margin-top: 1.75rem;
+    margin-bottom: 0.375rem;
+    font-weight: 600;
+
+    &.main {
+      font-size: var(--text-lg);
+    }
+  }
+
+  &__content {
+    @include mx.clamp-text(5);
+    font-size: var(--text-3xs);
+    font-weight: 300;
+    line-height: 0.9rem;
+  }
+}
