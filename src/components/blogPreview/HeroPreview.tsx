@@ -1,6 +1,7 @@
 import './HeroPreview.scss';
 import Link from 'next/link';
 import { BlogPost } from '@/types/types';
+import generatePostLink from '@/utils/generatePostLink';
 
 type HeroPreviewProps = {
   blog: BlogPost;
@@ -10,7 +11,7 @@ type HeroPreviewProps = {
 function HeroPreview(props: HeroPreviewProps) {
   const { blog, isMain } = props;
   const blogID = `hero-pvw__title-${blog._id}`;
-  const blogLink = `/post/${blog.slug}`;
+  const blogLink = generatePostLink(blog.slug);
 
   return (
     <article className="hero-pvw" aria-labelledby={blogID}>
@@ -18,7 +19,7 @@ function HeroPreview(props: HeroPreviewProps) {
         <Link href={blogLink}>
           <img
             src={blog.display_img.url}
-            alt="Sample photo"
+            alt={blog.title}
             className={`hero-pvw__img ${isMain && 'main'}`}
           />
         </Link>
