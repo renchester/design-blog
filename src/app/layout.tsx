@@ -34,9 +34,11 @@ export default function RootLayout({
       >
         <AuthProvider>
           <SnackbarProvider>
-            <Header />
-            <div className="container">{children}</div>
-            <Footer />
+            <div className="app">
+              <Header />
+              <div className="container">{children}</div>
+              <Footer />
+            </div>
           </SnackbarProvider>
         </AuthProvider>
       </body>

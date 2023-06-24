@@ -1,3 +1,5 @@
+import './HomePage.scss';
+import Hero from '@/components/hero/Hero';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <main className="">It&apos;s just not my year</main>;
+  return (
+    <main className="home-page">
+      <Hero />
+    </main>
+  );
 }
