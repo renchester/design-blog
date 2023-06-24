@@ -1,0 +1,22 @@
+.comment {
+  padding-block: 1.25rem;
+  //   background: rgb(201, 201, 201);
+
+  &:not(:last-of-type) {
+    border-bottom: 1px solid var(--color-text-alpha50);
+  }
+
+  &__author {
+    font-weight: 500;
+    margin-bottom: 0.15rem;
+  }
+
+  &__date {
+    color: var(--color-text-accent);
+    font-size: var(--text-xs);
+  }
+
+  &__content {
+    margin-block: 1rem;
+  }
+}
