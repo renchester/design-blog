@@ -11,16 +11,17 @@ body {
   // Type Scale
   --text-scale-ratio: 1.1;
 
-  --text-4xs: calc(var(--text-xxxs) / var(--text-scale-ratio));
-  --text-xxxs: calc(var(--text-xxs) / var(--text-scale-ratio));
-  --text-xxs: calc(var(--text-xs) / var(--text-scale-ratio));
+  --text-4xs: calc(var(--text-3xs) / var(--text-scale-ratio));
+  --text-3xs: calc(var(--text-2xs) / var(--text-scale-ratio));
+  --text-2xs: calc(var(--text-xs) / var(--text-scale-ratio));
   --text-xs: calc(var(--text-base-size) / var(--text-scale-ratio));
   --text-sm: var(--text-base-size);
   --text-md: calc(var(--text-base-size) * var(--text-scale-ratio));
   --text-lg: calc(var(--text-md) * var(--text-scale-ratio));
   --text-xl: calc(var(--text-lg) * var(--text-scale-ratio));
-  --text-xxl: calc(var(--text-xl) * var(--text-scale-ratio));
-  --text-xxxl: calc(var(--text-xxl) * var(--text-scale-ratio));
+  --text-2xl: calc(var(--text-xl) * var(--text-scale-ratio));
+  --text-3xl: calc(var(--text-2xl) * var(--text-scale-ratio));
+  --text-4xl: calc(var(--text-3xl) * var(--text-scale-ratio));
 
   //====== COLOR VARIABLES ======//
   --color-primary: #9443e0;
