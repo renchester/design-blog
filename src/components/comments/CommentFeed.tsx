@@ -3,6 +3,7 @@
 import './CommentFeed.scss';
 import { Comment as CommentType } from '@/types/types';
 import Comment from './Comment';
+import NewCommentForm from './NewCommentForm';
 
 type CommentFeedProps = {
   comments: CommentType[];
@@ -17,6 +18,7 @@ function CommentFeed(props: CommentFeedProps) {
 
   return (
     <div className="comment-sec">
+      <NewCommentForm />
       {topLevelComments.map((comment) => (
         <Comment key={`cm-${comment._id}`} comment={comment} />
       ))}
