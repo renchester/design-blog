@@ -9,6 +9,8 @@
 }
 
 .post-page {
+  --content-width: calc(var(--max-page-width) * 0.65);
+
   position: relative;
   margin-inline: auto;
 
@@ -73,8 +75,37 @@
     word-wrap: break-word;
   }
 
+  &__tags {
+    max-width: var(--content-width);
+    padding-block: 1rem;
+    margin-block: 2.5rem;
+    margin-inline: auto;
+    border-top: 1px solid var(--color-grey-light-3);
+
+    &-title {
+      @extend %-title;
+      margin-bottom: 0.65rem;
+    }
+
+    &-list {
+      display: flex;
+      justify-content: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    &-item {
+      border-radius: calc(var(--border-radius) * 1.5);
+      background: var(--color-accent-1);
+      padding: 0.35rem 0.75rem;
+      color: var(--color-light-1);
+      font-size: var(--text-2xs);
+      font-family: var(--font-poppins);
+    }
+  }
+
   &__comments {
-    max-width: calc(var(--max-page-width) * 0.65);
+    max-width: var(--content-width);
     margin-inline: auto;
 
     &-title {

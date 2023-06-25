@@ -10,6 +10,8 @@ import { BlogPost } from '@/types/types';
 
 import sampleBlogPost from '@/data/sampleBlogPost';
 import CommentFeed from '@/components/comments/CommentFeed';
+import SavePost from '@/components/buttons/LikePostButton';
+import LikePostButton from '@/components/buttons/LikePostButton';
 
 type PostPageProps = {
   params: {
@@ -87,6 +89,10 @@ function PostPage(props: PostPageProps) {
         {/* like post  */}
       </main>
 
+      <div className="post-page__like-post">
+        <LikePostButton blog={post} />
+      </div>
+
       {/* TAGS */}
       {post.tags.length > 0 && (
         <section className="post-page__tags">
@@ -94,10 +100,10 @@ function PostPage(props: PostPageProps) {
             Tags
           </h3>
 
-          <ul className="post-page__tag-list">
+          <ul className="post-page__tags-list">
             {post.tags.map((tag) => (
-              <li key={`tag-${tag._id}`} className="post-page__tag">
-                {tag.name}
+              <li key={`tag-${tag._id}`} className="post-page__tags-item">
+                <Link href={`/tag/${tag.name}`}>{tag.name}</Link>
               </li>
             ))}
           </ul>
