@@ -4,7 +4,7 @@ import { BlogPost, Comment as CommentType } from '@/types/types';
 import { ReactNode, createContext, useState } from 'react';
 
 type CommentContextType = {
-  parentPost: BlogPost; // | undefined;
+  parentPost: BlogPost;
   parentComment: CommentType | null;
   setParentComment: React.Dispatch<React.SetStateAction<CommentType | null>>;
 };

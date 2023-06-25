@@ -82,10 +82,6 @@ export const AuthProvider = (props: AuthProviderProps) => {
     initializeAuth();
   }, []);
 
-  useEffect(() => {
-    console.log({ user, token });
-  }, [user, token]);
-
   // Token listener, set app User to info from decoded token
   useEffect(() => {
     if (token === null) {
