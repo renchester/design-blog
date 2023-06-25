@@ -6,13 +6,15 @@ import useAuth from './useAuth';
 import refresh from '@/lib/refreshToken';
 
 const useAxiosInterceptors = () => {
-  const { token, setToken } = useAuth();
+  const { user, token, setToken } = useAuth();
 
   useEffect(() => {
+    if (!user || !token) return;
+
     // Request interceptor. Attach token with format 'Bearer <token>' to the authorization header
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config) => {
-        if (!token) return config;
+        if (!token || !user) return config;
 
         if (!config.headers['Authorization']) {
           // Set authorization header to app token
@@ -35,8 +37,7 @@ const useAxiosInterceptors = () => {
 
         // Expecting an expired access token
         if (error?.response?.status === 403 && !prevRequest.sent) {
-          // Set a custom property to indicate a request has been sent
-          // to the server to refresh token
+          // Set a custom property to indicate a request has been sent to the server to refresh token
           prevRequest.sent = true;
 
           const newAccessToken = await refresh();
@@ -62,7 +63,7 @@ const useAxiosInterceptors = () => {
       axiosPrivate.interceptors.request.eject(requestIntercept);
       axiosPrivate.interceptors.response.eject(responseIntercept);
     };
-  }, [token, setToken]);
+  }, [user, token, setToken]);
 
   return axiosPrivate;
 };
