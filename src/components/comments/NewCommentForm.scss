@@ -1,0 +1,66 @@
+.new-comment {
+  &[data-has-parent='false'] {
+    --border: 1px solid rgba(0, 0, 0, 0.25);
+
+    padding-block: 1rem;
+    border-bottom: var(--border);
+  }
+
+  &[data-has-parent='true'] {
+    padding: 1rem;
+    background: rgb(235, 235, 235);
+  }
+
+  &__title {
+    color: var(--color-text-accent);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+
+  &__form {
+  }
+
+  &__textarea {
+    width: 100%;
+    margin-block: 0.75rem;
+    padding: 0.25rem;
+
+    min-height: 50px;
+    max-height: 400px;
+    resize: vertical;
+
+    background: var(--color-background-accent);
+    font-size: var(--text-sm);
+
+    &:focus {
+      outline: 1px solid;
+    }
+  }
+
+  &__btn-container {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &__btn {
+    border-radius: var(--border-radius);
+    padding: 0.25rem 0.5rem;
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--color-light-1);
+
+    &.cancel {
+      background: rgb(105, 105, 105);
+    }
+
+    &.submit:disabled {
+      background: gray;
+      color: var(--color-light-2);
+      cursor: not-allowed;
+    }
+
+    &.submit {
+      background: var(--color-primary);
+    }
+  }
+}
