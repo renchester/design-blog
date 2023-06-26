@@ -1,0 +1,41 @@
+@use '@/styles/placeholders';
+@use '@/styles/mixins' as mx;
+
+.hp-tags {
+  background: var(--color-background-accent);
+  padding-block: 2rem;
+
+  @include mx.breakpoint(2xl, max) {
+    padding-inline: 1rem;
+  }
+
+  &__wrapper {
+    max-width: var(--max-page-width);
+    margin-inline: auto;
+  }
+
+  &__title {
+    @extend %title;
+    margin-bottom: 1rem;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 1.05px;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__item {
+    @extend %category-tag;
+    font-size: var(--text-2xs);
+
+    &::before {
+      content: '#';
+    }
+  }
+}
