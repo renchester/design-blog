@@ -1,0 +1,54 @@
+@use '@/styles/placeholders';
+@use '@/styles/mixins' as mx;
+
+.side-pvw {
+  display: flex;
+  gap: 1.65rem;
+  margin-block: 2.5rem;
+
+  @include mx.breakpoint(lg, max) {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  &__img {
+    max-width: 340px;
+
+    @include mx.breakpoint(lg, max) {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  &__info {
+    @extend %parent-with-centered-children;
+    flex-direction: column;
+    align-items: start;
+    padding-block: 1rem;
+    max-width: 460px;
+
+    @include mx.breakpoint(lg, max) {
+      align-items: center;
+      text-align: center;
+      margin-inline: auto;
+      max-width: 80%;
+    }
+  }
+
+  &__category {
+    @extend %category-tag;
+    display: block;
+    width: fit-content;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: var(--text-lg);
+    margin-block: 1rem 0.75rem;
+  }
+
+  &__content {
+    @extend %preview-content;
+    @include mx.clamp-text(4);
+  }
+}
