@@ -1,0 +1,49 @@
+@use '@/styles/placeholders';
+@use '@/styles/mixins' as mx;
+
+.fvid {
+  padding-block: 2rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 3rem;
+
+  @include mx.breakpoint(xl, max) {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  &__label {
+    @extend %category-tag;
+    width: fit-content;
+  }
+
+  &__title {
+    @extend %title;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  &__description {
+    @extend %preview-content;
+    font-size: var(--text-2xs);
+  }
+
+  &__link {
+    @extend %btn-link;
+  }
+
+  &__video {
+    flex-shrink: 0;
+
+    @include mx.breakpoint(xl, max) {
+      width: 100%;
+    }
+  }
+}
