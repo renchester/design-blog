@@ -1,0 +1,12 @@
+@use '@/styles/mixins' as mx;
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 42.5% 1fr;
+  column-gap: 1.5rem;
+
+  @include mx.breakpoint(sm, max) {
+    display: flex;
+    flex-direction: column;
+  }
+}

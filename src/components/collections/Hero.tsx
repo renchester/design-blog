@@ -8,8 +8,6 @@ const getPost = async () => {
   const response = await axios.get('/api/posts');
   const post = response.data.posts[0];
 
-  console.log('sample', post);
-
   return post;
 };
 
