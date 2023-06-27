@@ -1,0 +1,22 @@
+@use '@/styles/placeholders';
+
+.create-page {
+  padding-block: 1rem;
+  margin-bottom: 5rem;
+
+  &__title {
+    @extend %title;
+    margin-bottom: 0.5rem;
+  }
+
+  &__subtitle {
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: var(--text-xs);
+  }
+
+  &__disclaimer {
+    font-size: var(--text-3xs);
+    color: var(--color-text-accent);
+  }
+}
