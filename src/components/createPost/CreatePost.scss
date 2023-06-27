@@ -1,0 +1,100 @@
+.create {
+  display: flex;
+  gap: 0.5rem;
+  padding-inline: 1rem;
+  max-width: calc(var(--max-page-width) * 1.15);
+  margin-inline: auto;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1.25rem;
+  }
+
+  &__input-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding-block: 1rem;
+  }
+
+  &__input {
+    background: transparent;
+    margin-top: 0.25rem;
+    padding-inline: 0.25rem;
+    padding-block: 0.5rem;
+    border: 1px solid;
+
+    font-family: var(--font-inter);
+    font-size: var(--text-sm);
+
+    &::placeholder {
+      color: var(--color-text-alpha75);
+      font-size: var(--text-xs);
+    }
+
+    &.textarea {
+      resize: vertical;
+      width: 100%;
+      min-height: 300px;
+      max-height: 1000px;
+    }
+  }
+
+  &__input-label {
+    font-weight: 500;
+    font-size: var(--text-sm);
+  }
+
+  &__input-sublabel {
+    padding-block: 0.25rem;
+    font-size: var(--text-3xs);
+    font-family: var(--font-poppins);
+    color: var(--color-text-accent);
+    line-height: 1.1;
+  }
+
+  &__input-option {
+    text-transform: capitalize;
+  }
+
+  &__tags-list {
+    margin-block: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__switch {
+    border: 1px solid;
+  }
+
+  &__resizer {
+    width: 7.5px;
+    background: var(--color-grey-light-1);
+    border-radius: 5px;
+
+    &:hover,
+    &:focus {
+      background: var(--color-grey-light-3);
+    }
+  }
+
+  &__btn-submit {
+    margin-top: 3rem;
+    border: 2px solid currentColor;
+    border-radius: 10rem;
+    margin-inline: auto;
+    width: 90%;
+    padding: 0.55rem 1.25rem;
+
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--color-accent-1);
+
+    &:focus,
+    &:hover {
+      background: var(--color-accent-1);
+      color: var(--color-light-1);
+    }
+  }
+}
