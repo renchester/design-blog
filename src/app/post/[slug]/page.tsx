@@ -2,15 +2,15 @@ import './PostPage.scss';
 import Link from 'next/link';
 import unescape from 'validator/lib/unescape';
 import { format } from 'date-fns';
+import { Metadata } from 'next';
 
 import { CommentProvider } from '@/context/CommentContext';
-import SmallPreview from '@/components/blogPreview/SmallPreview';
 import axios from '@/lib/axios';
 import { BlogPost } from '@/types/types';
 
 import sampleBlogPost from '@/data/sampleBlogPost';
+import SmallPreview from '@/components/blogPreview/SmallPreview';
 import CommentFeed from '@/components/comments/CommentFeed';
-import SavePost from '@/components/buttons/LikePostButton';
 import LikePostButton from '@/components/buttons/LikePostButton';
 
 type PostPageProps = {
@@ -24,6 +24,19 @@ const getBlogPost = async (slug: string) => {
   const post = response.data.post;
   return post;
 };
+
+export async function generateMetadata(
+  props: PostPageProps,
+): Promise<Metadata> {
+  const { slug } = props.params;
+
+  const response = await axios.get(`/api/posts/${slug}`);
+  const blog = response.data.post;
+
+  return {
+    title: blog.title,
+  };
+}
 
 // export async function generateStaticParams() {
 //   const response = await axios.get('/api/posts');
