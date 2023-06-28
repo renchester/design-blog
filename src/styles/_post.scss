@@ -1,11 +1,18 @@
 @use '@/styles/placeholders';
 @use '@/styles/mixins' as mx;
 
-.post-page {
+.post {
   --content-width: calc(var(--max-page-width) * 0.75);
 
   position: relative;
   margin-inline: auto;
+
+  &.preview {
+    position: sticky;
+    top: 0;
+    height: 75vh;
+    overflow-y: auto;
+  }
 
   &__main {
     max-width: var(--max-page-width);
@@ -24,19 +31,28 @@
 
   &__title {
     padding-inline: 2rem;
-    font-size: var(--text-4xl);
+    font-size: var(--text-2xl);
     font-weight: 500;
     line-height: 1.15;
+
+    @include mx.breakpoint(xl) {
+      font-size: var(--text-4xl);
+    }
   }
 
   &__meta {
     margin-block: 0.5rem 1.5rem;
+    font-size: var(--text-xs);
+
+    @include mx.breakpoint(xl) {
+      font-size: var(--text-sm);
+    }
   }
 
   &__display {
     max-width: var(--max-page-width);
     margin-inline: auto;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
   }
 
   &__display-img {
@@ -46,7 +62,8 @@
   &__display-meta {
     padding-left: 1rem;
     font-size: var(--text-4xs);
-    font-weight: 500;
+    font-style: italic;
+    color: var(--color-text-accent);
 
     @include mx.breakpoint(xl) {
       padding-left: 0;
@@ -55,20 +72,13 @@
   }
 
   &__content {
-    & * {
-      all: revert;
-    }
-
+    // Global styles for post content
+    // See Post Element Map below to see actual
+    // styles for rendered markdown elements
     width: clamp(300px, 75%, 600px);
     margin-block: 2rem;
     margin-inline: auto;
     padding-inline: 1rem;
-
-    font-family: var(--font-inter);
-    word-wrap: break-word;
-    // font-size: var(--text-sm);
-    // font-weight: 300;
-    // line-height: 1.45;
   }
 
   &__tags {
@@ -132,5 +142,82 @@
         display: flex;
       }
     }
+  }
+}
+
+/* ========== POST ELEMENT MAP ========== */
+// Used for the actual post. Initially, all styles are reverted. When React-Markdown renders the elements, these are applued
+
+.post__content {
+  font-family: var(--font-poppins);
+  word-wrap: break-word;
+  //   line-height: 1.45;
+  //   white-space: pre-wrap;
+
+  * {
+    all: revert;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: var(--text-3xl);
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+  }
+
+  h4 {
+    font-size: var(--text-md);
+  }
+
+  p,
+  li,
+  code,
+  blockquote {
+    line-height: 1.5;
+    font-size: var(--text-xs);
+  }
+
+  img {
+    margin-block: 1rem;
+    width: 100%;
+  }
+
+  p {
+    font-weight: 300;
+    line-height: 1.85;
+  }
+
+  blockquote {
+    margin-left: 1.75rem;
+    padding-left: 1rem;
+    border-left: 5px solid var(--color-primary);
+  }
+
+  code {
+    color: var(--color-text-accent);
+  }
+
+  pre {
+    padding: 0.5rem;
+    background: var(--color-background-accent);
+  }
+
+  li {
+    padding-block: 0.125rem;
+    padding-left: 0.5rem;
   }
 }
