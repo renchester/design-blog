@@ -1,8 +1,7 @@
 'use client';
 
-import '../../app/post/[slug]/PostPage.scss';
+import '@/styles/_post.scss';
 import ReactMarkdown from 'react-markdown';
-import format from 'date-fns/format';
 import { type AuthoredPost } from './CreatePost';
 
 type PostPreviewProps = {
@@ -13,39 +12,37 @@ function PostPreview(props: PostPreviewProps) {
   const { post } = props;
 
   return (
-    <div className="post-page">
-      <article className="post-page__main">
-        <span className="post-page__category">{post.category}</span>
+    <div className="post preview">
+      <article className="post__main">
+        <span className="post__category">{post.category}</span>
 
-        <h1 className="post-page__title">{post.title}</h1>
-        <div className="post-page__meta">
-          <time className="post-age__meta-date">01.01.2000</time> |
-          <span className="post-page__meta-info"> by {post.author}</span>
+        <h1 className="post__title">{post.title}</h1>
+        <div className="post__meta">
+          <time className="post-age__meta-date">01.01.2025</time> |
+          <span className="post__meta-info"> by {post.author}</span>
         </div>
       </article>
 
-      <article className="post-page__display">
+      <article className="post__display">
         <img
           src={post.display_img.url}
           alt="Cover image"
-          className="post-page__display-img"
+          className="post__display-img"
         />
-        <span className="post-page__display-meta">
+        <span className="post__display-meta">
           Photo by {post.display_img.owner} from {post.display_img.source}
         </span>
       </article>
 
-      <ReactMarkdown className="post-page__content">
-        {post.content}
-      </ReactMarkdown>
+      <ReactMarkdown className="post__content">{post.content}</ReactMarkdown>
 
       {post.tags.length > 0 && (
-        <section className="post-page__tags">
-          <h3 className="post-page__tags-title">Tags</h3>
+        <section className="post__tags">
+          <h3 className="post__tags-title">Tags</h3>
 
-          <ul className="post-page__tags-list">
+          <ul className="post__tags-list">
             {post.tags.map((tag) => (
-              <li key={`tag-preview-${tag}`} className="post-page__tags-item">
+              <li key={`tag-preview-${tag}`} className="post__tags-item">
                 {tag}
               </li>
             ))}
