@@ -1,9 +1,42 @@
 .create {
+  position: sticky;
   display: flex;
   gap: 0.5rem;
   padding-inline: 1rem;
   max-width: calc(var(--max-page-width) * 1.15);
   margin-inline: auto;
+
+  &__tablist {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  &__tab {
+    padding: 0.35rem 1rem;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-size: var(--text-2xs);
+    font-weight: 700;
+    color: var(--color-text-accent);
+    text-transform: uppercase;
+    box-shadow: 0px 2px 0px var(--color-text-accent);
+
+    &[data-active='true'] {
+      background: var(--color-text-accent);
+      color: var(--color-light-1);
+    }
+
+    &:focus {
+      outline: none;
+      background: var(--color-text-accent);
+      color: var(--color-light-1);
+    }
+  }
+
+  &__tabpanel {
+    padding-top: 1rem;
+  }
 
   &__form {
     display: flex;
@@ -49,6 +82,7 @@
     padding-block: 0.25rem;
     font-size: var(--text-3xs);
     font-family: var(--font-poppins);
+    font-style: italic;
     color: var(--color-text-accent);
     line-height: 1.1;
   }
@@ -95,6 +129,13 @@
     &:hover {
       background: var(--color-accent-1);
       color: var(--color-light-1);
+    }
+
+    &:disabled {
+      background: var(--color-text-alpha75);
+      color: var(--color-light-2);
+      border: none;
+      cursor: not-allowed;
     }
   }
 }
