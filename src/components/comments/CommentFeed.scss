@@ -4,4 +4,10 @@
   gap: 1rem;
   padding-inline: 1rem;
   margin-bottom: 4rem;
+
+  &__empty {
+    margin-top: 1rem;
+    text-align: center;
+    color: var(--color-text-accent);
+  }
 }
