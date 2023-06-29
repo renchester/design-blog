@@ -30,7 +30,7 @@ function SidePreview(props: SidePreviewProps) {
           {blog.category}
         </Link>
 
-        <Link href={blogLink}>
+        <Link href={blogLink} className="side-pvw__info-link">
           <h2 id={blogLink} className="side-pvw__title">
             {blog.title}
           </h2>

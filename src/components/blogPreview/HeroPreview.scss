@@ -3,7 +3,6 @@
 
 .hero-pvw {
   margin-bottom: 1rem;
-  //   border: 1px solid;
 
   &:not(:first-of-type) {
     margin-top: 2rem;
@@ -14,12 +13,19 @@
   }
 
   &__img {
-    height: auto;
     width: 100%;
     object-fit: cover;
+    aspect-ratio: 11.5 / 9;
 
     &.main {
-      height: 200%;
+      aspect-ratio: 9 / 11.5;
+    }
+
+    &,
+    &.main {
+      @include mx.breakpoint(lg, max) {
+        aspect-ratio: 16 / 9;
+      }
     }
   }
 
@@ -33,6 +39,7 @@
 
   &__info {
     padding-inline: 0.75rem;
+    text-align: center;
   }
 
   &__title {
@@ -42,13 +49,16 @@
 
     &.main {
       font-size: var(--text-lg);
+
+      @include mx.breakpoint(sm, max) {
+        font-size: var(--text-sm);
+      }
     }
   }
 
   &__content {
-    font-size: var(--text-3xs);
-    font-weight: 300;
-    line-height: 0.9rem;
+    @extend %preview-content;
+    @include mx.clamp-text(5);
 
     &.side {
       @include mx.clamp-text(3);

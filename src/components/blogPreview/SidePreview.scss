@@ -2,6 +2,7 @@
 @use '@/styles/mixins' as mx;
 
 .side-pvw {
+  width: 100%;
   display: flex;
   gap: 1.65rem;
   margin-block: 2.5rem;
@@ -12,7 +13,9 @@
   }
 
   &__img {
+    aspect-ratio: 13.5 / 9;
     max-width: 340px;
+    object-fit: cover;
 
     @include mx.breakpoint(lg, max) {
       width: 100%;
@@ -33,6 +36,10 @@
       margin-inline: auto;
       max-width: 80%;
     }
+  }
+
+  &__info-link {
+    width: 100%;
   }
 
   &__category {
