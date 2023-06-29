@@ -2,15 +2,15 @@
 
 import './Comment.scss';
 import { Comment as CommentType } from '@/types/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import format from 'date-fns/format';
-import unescape from 'validator/lib/unescape';
 
 import NewCommentForm from './NewCommentForm';
 import useAxiosInterceptors from '@/hooks/useAxiosInterceptors';
 import useAuth from '@/hooks/useAuth';
 import useComments from '@/hooks/useComments';
+import useSnackbar from '@/hooks/useSnackbar';
 
 type CommentProps = {
   comment: CommentType;
@@ -21,21 +21,12 @@ function Comment(props: CommentProps) {
   const axiosPrivate = useAxiosInterceptors();
   const { user } = useAuth();
   const { parentPost } = useComments();
+  const { addAlert } = useSnackbar();
   const allComments = parentPost.comments;
-
-  const initialLikedStatus = () => {
-    if (!user) {
-      return false;
-    } else {
-      return !!comment.liked_by.find(
-        (commentLiker) => commentLiker._id === user._id,
-      );
-    }
-  };
 
   const [isFormExpanded, setFormExpanded] = useState(false);
   const [areChildrenExpanded, setChildrenExpanded] = useState(true);
-  const [isLiked, setLikedStatus] = useState(initialLikedStatus);
+  const [isLiked, setLikedStatus] = useState(false);
   const [likeAmount, setLikeAmount] = useState(comment.liked_by.length);
 
   // Get children of "this" comment
@@ -43,7 +34,7 @@ function Comment(props: CommentProps) {
     (currComment) => currComment.parent_comment_id === comment._id,
   );
 
-  const formattedDate = format(comment.date_created, 'LLLL dd, yyyy');
+  const formattedDate = format(new Date(comment.date_created), 'LLLL dd, yyyy');
 
   // Reply Form Togglers
   const toggleReplyForm = () => setFormExpanded((prev) => !prev);
@@ -79,9 +70,36 @@ function Comment(props: CommentProps) {
   // Child Comment Togglers
   const toggleChildrenExpansion = () => setChildrenExpanded((prev) => !prev);
 
+  const handleDeleteComment = async () => {
+    if (!user || user._id !== comment.author._id) return;
+
+    try {
+      const response = await axiosPrivate.delete(
+        `/api/posts/${parentPost.slug}/comments/${comment._id}`,
+      );
+
+      if (response.status === 204) {
+        addAlert({ message: 'Deleted comment', status: 'success' });
+      } else {
+        throw new Error('Unable to delete comment');
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        addAlert({ message: 'Unable to delete comment', status: 'error' });
+      }
+    }
+  };
+
   const levelStyles = {
     marginLeft: comment.comment_level > 1 ? '0.5rem' : '0',
   };
+
+  useEffect(() => {
+    setLikedStatus(
+      !!comment.liked_by.find((commentLiker) => commentLiker._id === user?._id),
+    );
+  }, [user, comment.liked_by]);
 
   return (
     <div className="comment" style={levelStyles}>
@@ -89,8 +107,7 @@ function Comment(props: CommentProps) {
         <div className="comment__top">
           <h4 aria-label="Comment author" className="comment__author">
             <Link href={`/user/${comment.author.username}`}>
-              {unescape(comment.author.first_name)}{' '}
-              {unescape(comment.author.last_name)}
+              {comment.author.first_name} {comment.author.last_name}
             </Link>
           </h4>
           <time
@@ -128,7 +145,7 @@ function Comment(props: CommentProps) {
           )}
         </div>
 
-        <p className="comment__content">{unescape(comment.content)}</p>
+        <p className="comment__content">{comment.content}</p>
 
         <div className="comment__interactions">
           <button
@@ -173,6 +190,29 @@ function Comment(props: CommentProps) {
 
             <span>{isFormExpanded ? 'Hide' : 'Reply'}</span>
           </button>
+
+          {/* DELETE BUTTON */}
+          {user && user._id === comment.author._id && (
+            <button type="button" onClick={handleDeleteComment}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--color-primary)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+              <span>Delete</span>
+            </button>
+          )}
         </div>
       </article>
 
