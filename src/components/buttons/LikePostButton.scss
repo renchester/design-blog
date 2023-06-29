@@ -2,9 +2,6 @@
 
 .btn-like {
   @extend %parent-with-centered-children;
-  flex-direction: column;
-  width: var(--content-width);
-  margin-inline: auto;
 
   &__btn {
     @extend %parent-with-centered-children;

@@ -4,7 +4,7 @@ import './LikePostButton.scss';
 import useAuth from '@/hooks/useAuth';
 import useAxiosInterceptors from '@/hooks/useAxiosInterceptors';
 import { BlogPost } from '@/types/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type LikePostProps = {
   blog: BlogPost;
@@ -15,15 +15,7 @@ function LikePostButton(props: LikePostProps) {
   const { user } = useAuth();
   const axiosPrivate = useAxiosInterceptors();
 
-  const initialLikedStatus = () => {
-    if (!user) {
-      return false;
-    } else {
-      return !!blog.liked_by.find((liker) => liker._id === user._id);
-    }
-  };
-
-  const [isPostLiked, setPostLike] = useState(initialLikedStatus());
+  const [isPostLiked, setPostLike] = useState(false);
   const [likeAmount, setLikeAmount] = useState(blog.liked_by.length);
 
   const togglePostLike = async () => {
@@ -51,6 +43,10 @@ function LikePostButton(props: LikePostProps) {
       }
     }
   };
+
+  useEffect(() => {
+    setPostLike(!!blog.liked_by.find((liker) => liker._id === user?._id));
+  }, [blog.liked_by, user]);
 
   if (!user) return null;
 
