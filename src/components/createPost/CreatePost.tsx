@@ -131,8 +131,6 @@ function CreatePost() {
     try {
       const response = await axiosPrivate.post(`/api/posts`, postData);
 
-      console.log(response);
-
       if (response.data.success) {
         addAlert({
           message: 'Successfully added post',
@@ -142,7 +140,7 @@ function CreatePost() {
         // Reset post data
         setPostData(initialPostState);
 
-        const { slug } = response.data.post.slug;
+        const { slug } = response.data.post;
 
         // Go to new post
         slug && router.push(`/post/${slug}`);
@@ -484,6 +482,10 @@ function CreatePost() {
                 ariaLabel="Toggle Post Privacy"
                 handler={togglePrivacy}
               />
+              <p className="create__notify">
+                Post is currently marked as{' '}
+                {postData.is_private ? 'private' : 'public'}
+              </p>
             </div>
             <button
               type="submit"

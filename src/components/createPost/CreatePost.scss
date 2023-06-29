@@ -113,6 +113,11 @@
     }
   }
 
+  &__notify {
+    font-size: var(--text-xs);
+    margin-top: 0.5rem;
+  }
+
   &__btn-submit {
     margin-top: 3rem;
     border: 2px solid currentColor;
