@@ -9,14 +9,14 @@ export const metadata: Metadata = {
 function CreatePostPage() {
   return (
     <div className="create-page">
-      <h1 className="create-page__title">Welcome to the editor suite!</h1>
+      <h1 className="create-page__title">Welcome to the Editor Suite!</h1>
       <div className="create-page__subtitle">
         <p>
           Add your post details in the editing panel and your changes will be
-          reflected in the post preview in real time.
+          reflected in the post preview.
         </p>
         <small className="create-page__disclaimer">
-          Note: You must be a verified author to actually submit the post
+          Note: You must be a verified author to actually submit a post
         </small>
       </div>
 
