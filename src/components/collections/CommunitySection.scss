@@ -1,4 +1,5 @@
 @use '@/styles/placeholders';
+@use '@/styles/mixins' as mx;
 
 .community {
   padding-block: 3.5rem;
@@ -38,8 +39,6 @@
   }
 
   &__gallery {
-    // width: 95%;
-    // margin-inline: auto;
     display: grid;
     grid-template-columns: 40% 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -47,6 +46,12 @@
       'main one one'
       'main one one';
     gap: 1.25rem;
+
+    @include mx.breakpoint(lg, max) {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 
   &__gallery-item {
@@ -58,6 +63,12 @@
 
     &:not(:first-of-type) {
       max-height: 400px;
+    }
+
+    @include mx.breakpoint(lg, max) {
+      max-height: revert;
+      aspect-ratio: 16 / 12;
+      overflow: hidden;
     }
   }
 
