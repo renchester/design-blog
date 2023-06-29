@@ -2,6 +2,8 @@ import { User } from '@/types/types';
 import unescape from 'validator/lib/unescape';
 
 const unescapeUser = (user: User) => {
+  if (!user) return;
+
   // For unpopulated users
   if (typeof user === 'string') {
     return user;
