@@ -10,7 +10,7 @@
   }
 
   &__wrapper {
-    max-width: var(--max-page-width);
+    max-width: calc(var(--max-page-width) * 0.75);
     margin-inline: auto;
   }
 
@@ -20,12 +20,12 @@
     font-size: var(--text-sm);
     font-weight: 600;
     letter-spacing: 1.05px;
-    text-align: left;
     text-transform: uppercase;
   }
 
   &__list {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 1rem;
   }
