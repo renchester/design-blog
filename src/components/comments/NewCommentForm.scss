@@ -63,4 +63,10 @@
       background: var(--color-primary);
     }
   }
+
+  &__no-user {
+    font-size: var(--text-2xs);
+    text-align: center;
+    color: var(--color-text-accent);
+  }
 }

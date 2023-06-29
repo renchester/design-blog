@@ -2,6 +2,7 @@
 
 import './NewCommentForm.scss';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import useAuth from '@/hooks/useAuth';
 import useSnackbar from '@/hooks/useSnackbar';
 import useComments from '@/hooks/useComments';
@@ -15,6 +16,7 @@ type NewCommentFormProps = {
 
 function NewCommentForm(props: NewCommentFormProps) {
   const { hideForm, parentComment } = props;
+  const router = useRouter();
   const { parentPost } = useComments();
   const { user } = useAuth();
   const { addAlert } = useSnackbar();
@@ -45,6 +47,10 @@ function NewCommentForm(props: NewCommentFormProps) {
           status: 'success',
           message: 'Successfully created comment.',
         });
+
+        router.refresh();
+
+        setComment('');
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -58,7 +64,11 @@ function NewCommentForm(props: NewCommentFormProps) {
   };
 
   if (!user)
-    return <p className="new-comment__no-user">You must be logged in</p>;
+    return (
+      <p className="new-comment__no-user">
+        You must be logged in to add a comment.
+      </p>
+    );
 
   return (
     <section
