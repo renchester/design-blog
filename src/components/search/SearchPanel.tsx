@@ -3,6 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 import './SearchPanel.scss';
 import Link from 'next/link';
+import axios from '@/lib/axios';
+import { BlogPost } from '@/types/types';
+import unescapeBlogPost from '@/utils/unescapers/unescapeBlogPost';
+import generatePostLink from '@/utils/generatePostLink';
 
 type SearchPanelProps = {
   hidePanel: () => void;
@@ -13,6 +17,7 @@ function SearchPanel(props: SearchPanelProps) {
   const panelRef = useRef<HTMLElement | null>(null);
 
   const [query, setQuery] = useState('');
+  const [trendingPosts, setTrendingPosts] = useState<BlogPost[]>([]);
 
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -29,6 +34,18 @@ function SearchPanel(props: SearchPanelProps) {
       window.removeEventListener('keydown', escKeyListener);
     };
   }, [hidePanel]);
+
+  useEffect(() => {
+    async function getTrendingPosts() {
+      const response = await axios.get(`/api/posts?limit=5`);
+      const posts = response.data.posts as BlogPost[];
+      const formattedPosts = posts.map((post) => unescapeBlogPost(post));
+
+      setTrendingPosts(formattedPosts);
+    }
+
+    getTrendingPosts();
+  }, []);
 
   return (
     <div id="search-panel" className="search">
@@ -93,14 +110,18 @@ function SearchPanel(props: SearchPanelProps) {
           Trending Articles
         </h3>
 
-        <ul className="search__trending-list">
-          <li className="search__trending-item">
-            <Link href="/">A Mid-Century Eichler Home</Link>
-          </li>
-          <li className="search__trending-item">
-            <Link href="/">Love is in the Air</Link>
-          </li>
-        </ul>
+        {trendingPosts.length > 0 && (
+          <ul className="search__trending-list">
+            {trendingPosts.map((post) => (
+              <li
+                className="search__trending-item"
+                key={`search-panel__${post.slug}`}
+              >
+                <Link href={generatePostLink(post.slug)}>{post.title}</Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </div>
   );

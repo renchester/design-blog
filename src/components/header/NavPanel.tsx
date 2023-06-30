@@ -1,10 +1,12 @@
 'use client';
 
 import './NavPanel.scss';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import axios from '@/lib/axios';
 import TitleOnlyPreview from '../blogPreview/TitleOnlyPreview';
-import sampleBlogPost from '@/data/sampleBlogPost';
+import unescapeBlogPost from '@/utils/unescapers/unescapeBlogPost';
+import { BlogPost } from '@/types/types';
 
 type NavPanelProps = {
   isExpanded: boolean;
@@ -14,6 +16,20 @@ type NavPanelProps = {
 function NavPanel(props: NavPanelProps) {
   const { isExpanded, hideNav } = props;
   const panelRef = useRef<HTMLElement | null>(null);
+
+  const [trendingPosts, setTrendingPosts] = useState<BlogPost[]>([]);
+
+  useEffect(() => {
+    async function getTrendingPosts() {
+      const response = await axios.get(`/api/posts?limit=2`);
+      const posts = response.data.posts as BlogPost[];
+      const formattedPosts = posts.map((post) => unescapeBlogPost(post));
+
+      setTrendingPosts(formattedPosts);
+    }
+
+    getTrendingPosts();
+  }, []);
 
   useEffect(() => {
     // Global event listeners for hiding panel
@@ -67,12 +83,15 @@ function NavPanel(props: NavPanelProps) {
         </div>
         <div className="nav__col-2">
           <ul className="nav__featured">
-            <li className="nav__featured-item">
-              <TitleOnlyPreview blog={sampleBlogPost} />
-            </li>
-            <li className="nav__featured-item">
-              <TitleOnlyPreview blog={sampleBlogPost} />
-            </li>
+            {trendingPosts.length > 0 &&
+              trendingPosts.map((post) => (
+                <li
+                  className="nav__featured-item"
+                  key={`nav-panel__${post.slug}`}
+                >
+                  <TitleOnlyPreview blog={post} />
+                </li>
+              ))}
           </ul>
         </div>
       </div>
