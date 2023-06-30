@@ -1,0 +1,15 @@
+@use '@/styles/placeholders';
+@use '@/styles/mixins' as mx;
+
+.latest-page {
+  max-width: var(--max-page-width);
+  margin-inline: auto;
+
+  @include mx.breakpoint(2xl, max) {
+    padding-inline: 1rem;
+  }
+
+  &__title {
+    @extend %title;
+  }
+}
