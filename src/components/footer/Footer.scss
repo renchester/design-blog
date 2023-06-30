@@ -1,4 +1,5 @@
 @use '@/styles/placeholders';
+@use '@/styles/mixins' as mx;
 
 .footer {
   background: var(--color-dark-2);
@@ -22,17 +23,17 @@
 
   &__label {
     margin-bottom: 0.65rem;
-    font-size: var(--text-xxs);
+    font-size: var(--text-2xs);
     color: var(--color-grey-light-3);
     text-transform: uppercase;
   }
 
   &__title {
-    font-size: var(--text-xxl);
+    font-size: var(--text-2xl);
   }
 
   &__info {
-    font-size: var(--text-xxs);
+    font-size: var(--text-2xs);
   }
 
   &__links-wrapper {
@@ -40,6 +41,11 @@
     gap: 5rem;
     padding-bottom: 1rem;
     border-bottom: 0.1px solid var(--color-grey-light-2);
+
+    @include mx.breakpoint(md, max) {
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 
   &__links {
@@ -55,6 +61,7 @@
   &__small {
     display: block;
     margin-top: 0.5rem;
-    font-size: var(--text-xxs);
+    font-size: var(--text-3xs);
+    color: var(--color-light-2);
   }
 }

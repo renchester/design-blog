@@ -54,8 +54,10 @@
   }
 
   &__trending-item {
-    margin-block: 0.75rem;
+    margin-block: 1.75rem;
+    line-height: 1.3;
     font-weight: 500;
+    font-size: var(--text-xs);
 
     &:hover,
     &:focus-within {
