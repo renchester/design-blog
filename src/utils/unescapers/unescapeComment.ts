@@ -5,7 +5,7 @@ import unescapeUser from './unescapeUser';
 const unescapeComment = (comment: Comment) => {
   const processedComment: Comment = {
     ...comment,
-    author: unescapeUser(comment.author),
+    author: unescapeUser(comment.author) || comment.author,
     content: unescape(comment.content),
   };
 

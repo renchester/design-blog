@@ -7,8 +7,8 @@ const unescapeBlogPost = (post: BlogPost) => {
   const processedPost: BlogPost = {
     ...post,
     title: unescape(post.title),
-    author: unescapeUser(post.author),
-    editors: post.editors.map((editor) => unescapeUser(editor)),
+    author: unescapeUser(post.author) || post.author,
+    editors: post.editors.map((editor) => unescapeUser(editor) || editor),
     content: unescape(post.content),
     comments: post.comments.map((comment) => unescapeComment(comment)),
     tags: post.tags.map((tag) => unescape(tag)),
