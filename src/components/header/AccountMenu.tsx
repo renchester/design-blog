@@ -52,10 +52,11 @@ function AccountMenu(props: AccountMenuProps) {
 
       <ul role="menu" className="acc-menu__list">
         <li className="acc-menu__item">
-          <Link href="/settings">Settings</Link>
+          <Link href="/create">Create Post</Link>
         </li>
-        <li className="acc-menu__item">Dark Mode</li>
-        <li className="acc-menu__item">Account</li>
+        <li className="acc-menu__item">
+          <Link href="/account">Account</Link>
+        </li>
         <li className="acc-menu__item">
           <button type="button" onClick={handleLogout}>
             Logout

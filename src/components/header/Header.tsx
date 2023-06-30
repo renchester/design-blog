@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -13,10 +13,6 @@ import Overlay from '../Overlay';
 
 function Header() {
   const { user } = useAuth();
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   const [isNavExpanded, setNavExpansion] = useState(false);
   const [isAccountMenuExpanded, setAccountMenuExpansion] = useState(false);
@@ -41,6 +37,7 @@ function Header() {
     e.stopPropagation();
     setSearchPanelExpansion((prevState) => !prevState);
   };
+
   const hideSearchPanel = () => setSearchPanelExpansion(false);
 
   return (
