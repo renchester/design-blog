@@ -62,11 +62,13 @@ function CreatePost() {
   };
 
   const getInitialPostData = () => {
-    const fromLocal = localStorage.getItem('postData');
+    if (typeof window !== 'undefined') {
+      const fromLocal = localStorage.getItem('postData');
 
-    return fromLocal
-      ? (JSON.parse(fromLocal) as AuthoredPost)
-      : initialPostState;
+      return fromLocal
+        ? (JSON.parse(fromLocal) as AuthoredPost)
+        : initialPostState;
+    } else return initialPostState;
   };
 
   const [postData, setPostData] = useState<AuthoredPost>(getInitialPostData());
