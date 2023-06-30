@@ -21,7 +21,7 @@ const getBlogPosts = async () => {
 };
 
 export const metadata: Metadata = {
-  title: 'Dezien',
+  title: 'Home Page | Dezien',
   description: 'A collective for architecture, tech, design, and more.',
 };
 

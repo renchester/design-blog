@@ -1,8 +1,8 @@
 export const metadata = {
-  title: 'Account',
+  title: 'Account Page',
 };
 
 function AccountPage() {
-  return <div>account</div>;
+  return <main>This page is under construction...</main>;
 }
 export default AccountPage;
