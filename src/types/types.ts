@@ -1,9 +1,9 @@
 export type BlogCategory =
   | 'architecture'
   | 'art'
-  | 'interior design'
+  | 'interior-design'
   | 'lifestyle'
-  | 'style + fashion'
+  | 'style-fashion'
   | 'tech'
   | 'travel';
 
@@ -27,7 +27,7 @@ export interface BlogPost {
   content: string;
   comments: Comment[];
   liked_by: User[];
-  tags: Tag[];
+  tags: string[];
   edits: {
     timestamp: Date;
   }[];
@@ -46,7 +46,7 @@ export interface Comment {
   author: User;
   content: string;
   comment_level: number;
-  parent_comment_id: string;
+  parent_comment_id?: string;
   liked_by: User[];
   edits: {
     timestamp: Date;
