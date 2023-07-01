@@ -8,7 +8,6 @@ import { API_URL } from '@/config/config';
 import unescapeComment from '@/utils/unescapers/unescapeComment';
 
 type CommentFeedProps = {
-  comments: CommentType[];
   postSlug: string;
 };
 

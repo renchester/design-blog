@@ -1,5 +1,6 @@
 import '@/styles/_post.scss';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import ReactMarkdown from 'react-markdown';
 import unescape from 'validator/lib/unescape';
 import { format } from 'date-fns';
@@ -13,6 +14,7 @@ import SmallPreview from '@/components/blogPreview/SmallPreview';
 import CommentFeed from '@/components/comments/CommentFeed';
 import LikePostButton from '@/components/buttons/LikePostButton';
 import unescapeBlogPost from '@/utils/unescapers/unescapeBlogPost';
+import Loading from '@/components/loading/Loading';
 
 type PostPageProps = {
   params: {
@@ -99,7 +101,6 @@ async function PostPage(props: PostPageProps) {
           </span>
         </div>
       </article>
-
       {/* DISPLAY IMG */}
       <article className="post__display">
         <img
@@ -111,16 +112,13 @@ async function PostPage(props: PostPageProps) {
           Photo by {post.display_img.owner} from {post.display_img.source}
         </span>
       </article>
-
       {/* MAIN */}
       <main className="post__content">
         <ReactMarkdown>{post.content}</ReactMarkdown>
       </main>
-
       <div className="post__like-post">
         <LikePostButton blog={post} />
       </div>
-
       {/* TAGS */}
       {post.tags.length > 0 && (
         <section className="post__tags">
@@ -137,7 +135,6 @@ async function PostPage(props: PostPageProps) {
           </ul>
         </section>
       )}
-
       {/* COMMENTS */}
       <section
         className="post__comments"
@@ -147,10 +144,11 @@ async function PostPage(props: PostPageProps) {
           <h3 id="post__comments-title" className="post__comments-title">
             Comments
           </h3>
-          <CommentFeed comments={post.comments} postSlug={post.slug} />
+          <Suspense fallback={<Loading message="Loading comments..." />}>
+            <CommentFeed postSlug={post.slug} />
+          </Suspense>
         </CommentProvider>
       </section>
-
       {/* FEATURED / LINKS TO OTHER POSTS */}
       <section
         className="post__featured"
