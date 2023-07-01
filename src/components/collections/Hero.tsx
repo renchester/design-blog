@@ -1,12 +1,16 @@
+import './Hero.scss';
+
 import { BlogPost } from '@/types/types';
 import HeroPreview from '../blogPreview/HeroPreview';
-import './Hero.scss';
-import axios from '@/lib/axios';
+import { API_URL } from '@/config/config';
 import unescapeBlogPost from '@/utils/unescapers/unescapeBlogPost';
 
 const getBlogPosts = async () => {
-  const response = await axios.get('/api/posts?limit=5');
-  const posts = response.data.posts as BlogPost[];
+  const response = await fetch(`${API_URL}/api/posts?limit=5`, {
+    next: { revalidate: 600 }, // Revalidate every 10 mins
+  });
+  const data = await response.json();
+  const posts = data.posts as BlogPost[];
   const formattedPosts = posts.map((post) => unescapeBlogPost(post));
   return formattedPosts;
 };

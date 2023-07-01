@@ -1,7 +1,8 @@
 import './HomePage.scss';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
-import axios from '@/lib/axios';
+import { API_URL } from '@/config/config';
 import Hero from '@/components/collections/Hero';
 import FeaturedTags from '@/components/collections/FeaturedTags';
 import FeaturedVideo from '@/components/collections/FeaturedVideo';
@@ -10,11 +11,13 @@ import CommunitySection from '@/components/collections/CommunitySection';
 import CallToAction from '@/components/collections/CallToAction';
 import { BlogPost } from '@/types/types';
 import unescapeBlogPost from '@/utils/unescapers/unescapeBlogPost';
-import Link from 'next/link';
 
 const getBlogPosts = async () => {
-  const response = await axios.get(`/api/posts`);
-  const posts = response.data.posts as BlogPost[];
+  const response = await fetch(`${API_URL}/api/posts`, {
+    next: { revalidate: 600 }, // Revalidate every 10 mins
+  });
+  const data = await response.json();
+  const posts = data.posts as BlogPost[];
   const formattedPosts = posts.map((post) => unescapeBlogPost(post));
 
   return formattedPosts;
@@ -53,7 +56,7 @@ export default async function Home() {
       </div>
 
       <div className="home-page__section">
-        <Link href="/latest" className="home-page__all">
+        <Link href="/latest/1" className="home-page__all">
           See All Posts
         </Link>
       </div>

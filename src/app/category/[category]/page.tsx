@@ -2,7 +2,8 @@ import './CategoryPage.scss';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import SidePreview from '@/components/blogPreview/SidePreview';
-import axios from '@/lib/axios';
+
+import { API_URL } from '@/config/config';
 import { BlogCategory, BlogPost } from '@/types/types';
 import unescapeBlogPost from '@/utils/unescapers/unescapeBlogPost';
 
@@ -27,8 +28,11 @@ export async function generateStaticParams() {
 }
 
 const getBlogsByCategory = async (category: string) => {
-  const response = await axios.get(`/api/posts/category/${category}`);
-  const posts = response.data.posts as BlogPost[];
+  const response = await fetch(`${API_URL}/api/posts/category/${category}`, {
+    next: { revalidate: 3600 }, // Revalidate every hour
+  });
+  const data = await response.json();
+  const posts = data.posts as BlogPost[];
   const formattedPosts = posts.map((post) => unescapeBlogPost(post));
 
   return formattedPosts;

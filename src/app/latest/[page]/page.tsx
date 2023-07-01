@@ -1,8 +1,9 @@
 import './LatestPage.scss';
-import axios from '@/lib/axios';
+import { Metadata } from 'next';
+
+import { API_URL } from '@/config/config';
 import { BlogPost } from '@/types/types';
 import unescapeBlogPost from '@/utils/unescapers/unescapeBlogPost';
-import { Metadata } from 'next';
 import SidePreview from '@/components/blogPreview/SidePreview';
 import PaginatePosts from '@/components/pagination/PaginatePosts';
 
@@ -13,13 +14,20 @@ type LatestPageProps = {
 };
 
 const getBlogPosts = async (page: number) => {
-  const response = await axios.get(`/api/posts?page=${page}`);
-  const posts = response.data.posts as BlogPost[];
+  const response = await fetch(`${API_URL}/api/posts?page=${page}`, {
+    next: { revalidate: 3600 }, // Revalidate every hour
+  });
+  const data = await response.json();
+  const postCount = Number.parseInt(
+    response.headers.get('x-total-count') || '0',
+  );
+
+  const posts = data.posts as BlogPost[];
   const formattedPosts = posts.map((post) => unescapeBlogPost(post));
 
   return {
     posts: formattedPosts,
-    postCount: response.headers['x-total-count'],
+    postCount,
   };
 };
 

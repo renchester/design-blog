@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 import './SearchPanel.scss';
 import Link from 'next/link';
-import axios from '@/lib/axios';
 import { BlogPost } from '@/types/types';
 import unescapeBlogPost from '@/utils/unescapers/unescapeBlogPost';
 import generatePostLink from '@/utils/generatePostLink';
+import { API_URL } from '@/config/config';
 
 type SearchPanelProps = {
   hidePanel: () => void;
@@ -37,8 +37,11 @@ function SearchPanel(props: SearchPanelProps) {
 
   useEffect(() => {
     async function getTrendingPosts() {
-      const response = await axios.get(`/api/posts?limit=5`);
-      const posts = response.data.posts as BlogPost[];
+      const response = await fetch(`${API_URL}/api/posts?limit=2`, {
+        next: { revalidate: 86400 },
+      });
+      const data = await response.json();
+      const posts = data.posts as BlogPost[];
       const formattedPosts = posts.map((post) => unescapeBlogPost(post));
 
       setTrendingPosts(formattedPosts);

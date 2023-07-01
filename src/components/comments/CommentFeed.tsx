@@ -4,13 +4,29 @@ import './CommentFeed.scss';
 import { Comment as CommentType } from '@/types/types';
 import Comment from './Comment';
 import NewCommentForm from './NewCommentForm';
+import { API_URL } from '@/config/config';
+import unescapeComment from '@/utils/unescapers/unescapeComment';
 
 type CommentFeedProps = {
   comments: CommentType[];
+  postSlug: string;
 };
 
-function CommentFeed(props: CommentFeedProps) {
-  const { comments } = props;
+const getPostComments = async (slug: string) => {
+  const response = await fetch(`${API_URL}/api/posts/${slug}/comments`, {
+    cache: 'no-cache', // fetch fresh data for each request
+  });
+  const data = await response.json();
+
+  const comments = data.comments as CommentType[];
+  const formattedComments = comments.map((comment) => unescapeComment(comment));
+
+  return formattedComments;
+};
+
+async function CommentFeed(props: CommentFeedProps) {
+  const { postSlug } = props;
+  const comments = await getPostComments(postSlug);
 
   const topLevelComments = comments.filter(
     (comment) => comment.comment_level === 1 && !comment.parent_comment_id,

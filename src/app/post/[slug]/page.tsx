@@ -5,7 +5,7 @@ import unescape from 'validator/lib/unescape';
 import { format } from 'date-fns';
 import { Metadata } from 'next';
 
-import axios from '@/lib/axios';
+import { API_URL } from '@/config/config';
 import { BlogPost } from '@/types/types';
 import { CommentProvider } from '@/context/CommentContext';
 
@@ -21,15 +21,22 @@ type PostPageProps = {
 };
 
 const getBlogPost = async (slug: string) => {
-  const response = await axios.get(`/api/posts/${slug}`);
-  const post = response.data.post as BlogPost;
+  const response = await fetch(`${API_URL}/api/posts/${slug}`, {
+    next: { revalidate: 86400 }, // Revalidation = 1 day
+  });
+  const data = await response.json();
+  const post = data.post as BlogPost;
 
   return unescapeBlogPost(post);
 };
 
 const getTrendingPosts = async () => {
-  const response = await axios.get('/api/posts?limit=4');
-  const posts = response.data.posts as BlogPost[];
+  const response = await fetch(`${API_URL}/api/posts?limit=4`, {
+    next: { revalidate: 86400 },
+  });
+  const data = await response.json();
+  const posts = data.posts as BlogPost[];
+
   const formattedPosts = posts.map((post) => unescapeBlogPost(post));
 
   return formattedPosts;
@@ -40,17 +47,19 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { slug } = props.params;
 
-  const response = await axios.get(`/api/posts/${slug}`);
-  const blog = response.data.post;
+  const response = await fetch(`${API_URL}/api/posts/${slug}`);
+  const data = await response.json();
+  const post = data.post as BlogPost;
 
   return {
-    title: unescape(blog.title),
+    title: unescape(post.title),
   };
 }
 
 export async function generateStaticParams() {
-  const response = await axios.get('/api/posts');
-  const posts = response.data.posts as BlogPost[];
+  const response = await fetch(`${API_URL}/api/posts`);
+  const data = await response.json();
+  const posts = data.posts as BlogPost[];
 
   return posts.map((post) => ({
     slug: post.slug,
@@ -138,7 +147,7 @@ async function PostPage(props: PostPageProps) {
           <h3 id="post__comments-title" className="post__comments-title">
             Comments
           </h3>
-          <CommentFeed comments={post.comments} />
+          <CommentFeed comments={post.comments} postSlug={post.slug} />
         </CommentProvider>
       </section>
 
