@@ -3,7 +3,8 @@
 import './LikePostButton.scss';
 import useAuth from '@/hooks/useAuth';
 import useAxiosInterceptors from '@/hooks/useAxiosInterceptors';
-import { BlogPost } from '@/types/types';
+import useSnackbar from '@/hooks/useSnackbar';
+import { BlogPost, User } from '@/types/types';
 import { useEffect, useState } from 'react';
 
 type LikePostProps = {
@@ -13,15 +14,16 @@ type LikePostProps = {
 function LikePostButton(props: LikePostProps) {
   const { blog } = props;
   const { user } = useAuth();
+  const { addAlert } = useSnackbar();
   const axiosPrivate = useAxiosInterceptors();
 
   const [isPostLiked, setPostLike] = useState(false);
   const [likeAmount, setLikeAmount] = useState(blog.liked_by.length);
 
+  const API_LIKE_URL = `/api/posts/${blog.slug}/likes`;
+
   const togglePostLike = async () => {
     try {
-      const API_LIKE_URL = `/api/posts/${blog.slug}/likes`;
-
       if (isPostLiked) {
         const response = await axiosPrivate.delete(API_LIKE_URL);
 
@@ -45,8 +47,28 @@ function LikePostButton(props: LikePostProps) {
   };
 
   useEffect(() => {
-    setPostLike(!!blog.liked_by.find((liker) => liker._id === user?._id));
-  }, [blog.liked_by, user]);
+    async function getUserLikeStatus() {
+      if (!user) {
+        setPostLike(false);
+        return;
+      }
+
+      const response = await axiosPrivate.get(`/api/posts/${blog.slug}/likes`);
+      const liked_by = response.data.likes as User[];
+
+      setPostLike(!!liked_by?.find((liker) => liker._id === user?._id));
+    }
+
+    try {
+      getUserLikeStatus();
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+
+      addAlert({ status: 'error', message: 'Unable to get post likes' });
+    }
+  }, [user, addAlert, axiosPrivate, blog.slug, API_LIKE_URL]);
 
   if (!user) return null;
 
@@ -78,9 +100,11 @@ function LikePostButton(props: LikePostProps) {
           {isPostLiked ? 'Liked' : 'Like post'}
         </span>
       </button>
-      {likeAmount > 1 && (
+      {likeAmount > 1 && isPostLiked ? (
+        <p className="btn-like__join">Thank you for liking this post</p>
+      ) : (
         <p className="btn-like__join">
-          Join the {likeAmount} people who like this post{' '}
+          Join the {likeAmount} people who like this post
         </p>
       )}
     </div>

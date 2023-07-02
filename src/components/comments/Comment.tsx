@@ -1,7 +1,7 @@
 'use client';
 
 import './Comment.scss';
-import { Comment as CommentType } from '@/types/types';
+import { Comment as CommentType, User } from '@/types/types';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import format from 'date-fns/format';
@@ -96,10 +96,28 @@ function Comment(props: CommentProps) {
   };
 
   useEffect(() => {
-    setLikedStatus(
-      !!comment.liked_by.find((commentLiker) => commentLiker._id === user?._id),
-    );
-  }, [user, comment.liked_by]);
+    async function getUserLikeStatus() {
+      if (!user) {
+        setLikedStatus(false);
+        return;
+      }
+
+      const response = await axiosPrivate.get(
+        `/api/posts/${parentPost.slug}/comments/${comment._id}/likes`,
+      );
+      const liked_by = response.data.likes as User[];
+
+      setLikedStatus(!!liked_by?.find((liker) => liker._id === user?._id));
+    }
+
+    try {
+      getUserLikeStatus();
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
+  }, [user, addAlert, axiosPrivate, comment._id, parentPost.slug]);
 
   return (
     <div className="comment" style={levelStyles}>
