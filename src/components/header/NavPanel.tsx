@@ -7,6 +7,7 @@ import TitleOnlyPreview from '../blogPreview/TitleOnlyPreview';
 import unescapeBlogPost from '@/utils/unescapers/unescapeBlogPost';
 import { BlogPost } from '@/types/types';
 import { API_URL } from '@/config/config';
+import useSnackbar from '@/hooks/useSnackbar';
 
 type NavPanelProps = {
   isExpanded: boolean;
@@ -15,6 +16,7 @@ type NavPanelProps = {
 
 function NavPanel(props: NavPanelProps) {
   const { isExpanded, hideNav } = props;
+  const { addAlert } = useSnackbar();
   const panelRef = useRef<HTMLElement | null>(null);
 
   const [trendingPosts, setTrendingPosts] = useState<BlogPost[]>([]);
@@ -31,8 +33,16 @@ function NavPanel(props: NavPanelProps) {
       setTrendingPosts(formattedPosts);
     }
 
-    getTrendingPosts();
-  }, []);
+    try {
+      getTrendingPosts();
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+
+      addAlert({ status: 'error', message: 'Unable to get trending posts' });
+    }
+  }, [addAlert]);
 
   useEffect(() => {
     // Global event listeners for hiding panel

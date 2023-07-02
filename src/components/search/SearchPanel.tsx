@@ -7,6 +7,7 @@ import { BlogPost } from '@/types/types';
 import unescapeBlogPost from '@/utils/unescapers/unescapeBlogPost';
 import generatePostLink from '@/utils/generatePostLink';
 import { API_URL } from '@/config/config';
+import useSnackbar from '@/hooks/useSnackbar';
 
 type SearchPanelProps = {
   hidePanel: () => void;
@@ -14,6 +15,7 @@ type SearchPanelProps = {
 
 function SearchPanel(props: SearchPanelProps) {
   const { hidePanel } = props;
+  const { addAlert } = useSnackbar();
   const panelRef = useRef<HTMLElement | null>(null);
 
   const [query, setQuery] = useState('');
@@ -47,8 +49,16 @@ function SearchPanel(props: SearchPanelProps) {
       setTrendingPosts(formattedPosts);
     }
 
-    getTrendingPosts();
-  }, []);
+    try {
+      getTrendingPosts();
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+
+      addAlert({ status: 'error', message: 'Unable to get trending posts' });
+    }
+  }, [addAlert]);
 
   return (
     <div id="search-panel" className="search">
