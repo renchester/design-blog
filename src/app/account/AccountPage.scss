@@ -1,0 +1,67 @@
+@use '@/styles/placeholders';
+
+%account-title {
+  @extend %title;
+  text-align: left;
+  font-size: var(--text-lg);
+  margin-bottom: 1.5rem;
+}
+
+.acc-page {
+  max-width: var(--max-page-width);
+  margin-inline: auto;
+
+  &__greeting {
+    padding-block: 1rem;
+    text-align: center;
+  }
+
+  &__hello {
+    @extend %title;
+  }
+
+  &__welcome {
+    margin-top: 0.5rem;
+    color: var(--color-text-accent);
+  }
+
+  &__small {
+    display: inline-block;
+    margin-top: 0.75rem;
+    max-width: 400px;
+    font-size: var(--text-3xs);
+    color: var(--color-text-accent);
+  }
+
+  &__details {
+    &-section {
+      padding-block: 2rem;
+      padding-left: 1rem;
+      border-bottom: 1px solid var(--color-text-alpha25);
+    }
+
+    &-label {
+      @extend %account-title;
+    }
+
+    &-list {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2.5rem 5rem;
+    }
+
+    &-title {
+      font-weight: 500;
+    }
+
+    &-info {
+      margin-top: 0.5rem;
+    }
+
+    &-change {
+      @extend %btn-link;
+      margin-top: 1rem;
+      padding: 0.15rem 0.75rem;
+    }
+  }
+}
