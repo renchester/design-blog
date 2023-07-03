@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { AnimatePresence } from 'framer-motion';
 
 import './Header.scss';
 import NavPanel from './NavPanel';
@@ -133,15 +134,19 @@ function Header() {
         </div>
       </div>
 
-      {isNavExpanded && (
-        <NavPanel isExpanded={isNavExpanded} hideNav={hideNav} />
-      )}
+      <AnimatePresence>
+        {isNavExpanded && (
+          <NavPanel isExpanded={isNavExpanded} hideNav={hideNav} />
+        )}
+      </AnimatePresence>
 
-      {isSearchPanelExpanded && (
-        <Overlay hideChildren={hideSearchPanel}>
-          <SearchPanel hidePanel={hideSearchPanel} />
-        </Overlay>
-      )}
+      <AnimatePresence>
+        {isSearchPanelExpanded && (
+          <Overlay hideChildren={hideSearchPanel}>
+            <SearchPanel hidePanel={hideSearchPanel} />
+          </Overlay>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

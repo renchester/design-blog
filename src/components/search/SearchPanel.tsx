@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './SearchPanel.scss';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { BlogPost } from '@/types/types';
 import unescapeBlogPost from '@/utils/unescapers/unescapeBlogPost';
 import generatePostLink from '@/utils/generatePostLink';
@@ -61,7 +62,14 @@ function SearchPanel(props: SearchPanelProps) {
   }, [addAlert]);
 
   return (
-    <div id="search-panel" className="search">
+    <motion.div
+      id="search-panel"
+      className="search"
+      initial={{ x: 200, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ type: 'tween', duration: 0.35 }}
+      exit={{ x: 200, opacity: 0 }}
+    >
       <div className="search__top">
         <h1 className="search__label">Search</h1>
         <button className="search__btn-close" onClick={hidePanel}>
@@ -136,7 +144,7 @@ function SearchPanel(props: SearchPanelProps) {
           </ul>
         )}
       </section>
-    </div>
+    </motion.div>
   );
 }
 export default SearchPanel;

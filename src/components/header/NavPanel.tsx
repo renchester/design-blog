@@ -3,6 +3,7 @@
 import './NavPanel.scss';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import TitleOnlyPreview from '../blogPreview/TitleOnlyPreview';
 import unescapeBlogPost from '@/utils/unescapers/unescapeBlogPost';
 import { BlogPost } from '@/types/types';
@@ -66,7 +67,16 @@ function NavPanel(props: NavPanelProps) {
   }, [hideNav]);
 
   return (
-    <nav id="nav-panel" aria-hidden={isExpanded} className="nav" ref={panelRef}>
+    <motion.nav
+      id="nav-panel"
+      aria-hidden={isExpanded}
+      className="nav"
+      ref={panelRef}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.25, type: 'tween' }}
+      exit={{ y: -100, opacity: 0 }}
+    >
       <div className="nav__wrapper">
         <div className="nav__col-1">
           <h3 className="nav__label">Topics</h3>
@@ -108,7 +118,7 @@ function NavPanel(props: NavPanelProps) {
           </ul>
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }
 export default NavPanel;

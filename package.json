@@ -16,6 +16,7 @@
     "date-fns": "^2.30.0",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
+    "framer-motion": "^10.12.18",
     "jwt-decode": "^3.1.2",
     "lodash.debounce": "^4.0.8",
     "material-symbols": "^0.7.0",
