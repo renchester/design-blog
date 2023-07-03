@@ -1,34 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project: Dezien Blog
 
-## Getting Started
+[The **live version** of the app can be found here](https://reddit-apollo-clone.vercel.app/)
 
-First, run the development server:
+[The repository for this blog's **API/backend** can be found here](https://github.com/renchester/blog-api)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This repository comprises the frontend portion of the Dezien Blog App. This blog is centered around design, architecture, travel, and technology. The app is built with NextJS/React and Typescript, with Sass for styling.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. **Persistent Authentication using JWTs**: The app integrates with the backend auth server to issue refresh tokens on login, which are stored in an HTTPOnly cookie on the browser. The refresh tokens are used to reissue short-lived access tokens which are used to persist user login information in the app. These access tokens are stored in app memory and are automatically refreshed using Axios interceptors.
 
-## Learn More
+1. **Intuitive User Interface**: The frontend is designed to be intuitive, ensuring that users can effortlessly navigate through various sections of the blog app. The clean and well-organized layout makes it easy to discover and access different articles, categories, and tags.
 
-To learn more about Next.js, take a look at the following resources:
+1. **Engaging Content Presentation**: As a design blog, understanding the importance of visually appealing content is key for the end-user experience. The frontend ensures that articles, images, and multimedia elements are displayed in an engaging and aesthetically pleasing manner. This enhances the overall reading experience and captivates the attention of the audience.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Responsive Design**: Our blog app is built with a responsive design, ensuring that it adapts seamlessly to different screen sizes and devices. The blog can be accessed on a desktop, laptop, tablet, or a smartphone, while ensuring that users can enjoy the same level of functionality and visual appeal across all platforms.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. **Integration with Backend/API**: The frontend seamlessly integrates with the backend of our full-stack blog app--enabling real-time updates, instant publishing of new articles, and efficient retrieval of content. This integration ensures that readers always have access to the most recent and relevant information.
 
-## Deploy on Vercel
+1. **Editor Suite**: The app features an [editor suite](https://reddit-apollo-clone.vercel.app/create), which allows users to edit and preview their blog posts in real-time. The editor to handle blog content uses [React Markdown](https://github.com/remarkjs/react-markdown) to instantly transform markdown into React elements. _Note: While everyone is allowed to use the editor suite, only verified authors can submit posts to the database._
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Dynamic Blog Content**: With the editor suite, blog content can use code blocks, emphasized/bold characters, headings, images, and hyperlinks. This allows a richer experience instead of just having plain text for blog posts.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Technologies Used
+
+- Typescript
+- NextJS/React
+- Sass
+- JWTs
+- Axios
+
+## Credits/Acknowledgments
+
+This project is for personal use only. All blog content text have been generated using ChatGPT. Images used in the blog posts are retrieved from Unsplash.
+
+## Display
+
+![Home Page View](./img/home-page.png)
+_Home Page - Hero_
+
+![Editor Suite](./img/editor-suite.png)
+_Editor Suite - Blog Content Tab_
+
+![Post Preview](./img/post-preview.png)
+_Post Preview - Mobile_
+
+---
+
+Developed by **Renchester Ramos**
