@@ -1,6 +1,6 @@
 # Project: Dezien Blog
 
-[The **live version** of the app can be found here](https://reddit-apollo-clone.vercel.app/)
+[The **live version** of the app can be found here](https://dezien-blog.vercel.app/)
 
 [The repository for this blog's **API/backend** can be found here](https://github.com/renchester/blog-api)
 
@@ -20,7 +20,7 @@ This repository comprises the frontend portion of the Dezien Blog App. This blog
 
 1. **Integration with Backend/API**: The frontend seamlessly integrates with the backend of our full-stack blog app--enabling real-time updates, instant publishing of new articles, and efficient retrieval of content. This integration ensures that readers always have access to the most recent and relevant information.
 
-1. **Editor Suite**: The app features an [editor suite](https://reddit-apollo-clone.vercel.app/create), which allows users to edit and preview their blog posts in real-time. The editor to handle blog content uses [React Markdown](https://github.com/remarkjs/react-markdown) to instantly transform markdown into React elements. _Note: While everyone is allowed to use the editor suite, only verified authors can submit posts to the database._
+1. **Editor Suite**: The app features an [editor suite](https://dezien-blog.vercel.app/create), which allows users to edit and preview their blog posts in real-time. The editor to handle blog content uses [React Markdown](https://github.com/remarkjs/react-markdown) to instantly transform markdown into React elements. <sup><sub>_Note: While everyone is allowed to use the editor suite, only verified authors can submit posts to the database._</sub></sup>
 
 1. **Dynamic Blog Content**: With the editor suite, blog content can use code blocks, emphasized/bold characters, headings, images, and hyperlinks. This allows a richer experience instead of just having plain text for blog posts.
 
@@ -39,12 +39,15 @@ This project is for personal use only. All blog content text have been generated
 ## Display
 
 ![Home Page View](./img/home-page.png)
+
 _Home Page - Hero_
 
 ![Editor Suite](./img/editor-suite.png)
+
 _Editor Suite - Blog Content Tab_
 
 ![Post Preview](./img/post-preview.png)
+
 _Post Preview - Mobile_
 
 ---
