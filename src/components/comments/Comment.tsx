@@ -11,18 +11,21 @@ import useAxiosInterceptors from '@/hooks/useAxiosInterceptors';
 import useAuth from '@/hooks/useAuth';
 import useComments from '@/hooks/useComments';
 import useSnackbar from '@/hooks/useSnackbar';
+import { useRouter } from 'next/navigation';
 
 type CommentProps = {
   comment: CommentType;
+  allComments: CommentType[];
 };
 
 function Comment(props: CommentProps) {
-  const { comment } = props;
+  const { comment, allComments } = props;
+
+  const router = useRouter();
   const axiosPrivate = useAxiosInterceptors();
   const { user } = useAuth();
   const { parentPost } = useComments();
   const { addAlert } = useSnackbar();
-  const allComments = parentPost.comments;
 
   const [isFormExpanded, setFormExpanded] = useState(false);
   const [areChildrenExpanded, setChildrenExpanded] = useState(true);
@@ -80,6 +83,8 @@ function Comment(props: CommentProps) {
 
       if (response.status === 204) {
         addAlert({ message: 'Deleted comment', status: 'success' });
+
+        router.refresh();
       } else {
         throw new Error('Unable to delete comment');
       }
@@ -241,7 +246,11 @@ function Comment(props: CommentProps) {
       {areChildrenExpanded &&
         childComments.length > 0 &&
         childComments.map((cm) => (
-          <Comment key={`cm__${cm._id}`} comment={cm} />
+          <Comment
+            key={`cm__${cm._id}`}
+            comment={cm}
+            allComments={allComments}
+          />
         ))}
     </div>
   );

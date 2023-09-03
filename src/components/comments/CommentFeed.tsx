@@ -36,7 +36,11 @@ async function CommentFeed(props: CommentFeedProps) {
       <NewCommentForm />
       {topLevelComments.length > 0 ? (
         topLevelComments.map((comment) => (
-          <Comment key={`cm-${comment._id}`} comment={comment} />
+          <Comment
+            key={`cm-${comment._id}`}
+            comment={comment}
+            allComments={comments}
+          />
         ))
       ) : (
         <p className="comment-sec__empty">This post has no comments yet...</p>
